@@ -3,11 +3,13 @@ import {Route, Routes } from 'react-router-dom';
 import {privateRoutes, publicRoutes} from "../router";
 import Event from "../page/Event";
 import Login from "../page/Login";
+import {useSelector} from "react-redux";
+import {useTypeSelector} from "../Hooks/useTypeSelector";
 
 const AppRouter = (): JSX.Element => {
-    const auth = true
+    const {isAuth} = useTypeSelector(state => state.auth)
     return (
-        auth
+        isAuth
         ?
             <Routes>
                 {privateRoutes.map(route =>

@@ -2,22 +2,26 @@ import React from 'react';
 import {Layout, Menu, Row} from "antd";
 import {useNavigate} from "react-router-dom";
 import { RouteNames } from '../router';
+import {useTypeSelector} from "../Hooks/useTypeSelector";
+import {useActions} from "../Hooks/useActions";
 
 
 const Navbar = (): JSX.Element => {
-
     const navigate = useNavigate()
-    const auth = false
+    const {isAuth, user} = useTypeSelector(state => state.auth)
+    const {logout} = useActions()
+
     return (
         <Layout.Header>
             <Row justify={"end"}>
-                {auth
+                {isAuth
                 ?
                     <>
-                        <div style={{color: '#fff'}}>Aiods</div>
+                        <div style={{color: '#fff'}}>{user.username}</div>
                         <Menu theme={"dark"} selectable={false}>
                             <Menu.Item
-                                onClick={() => console.log("Выйти")}
+                                // @ts-ignore
+                                onClick={logout}
                                 key={1}>
                                 Выйти
                             </Menu.Item>
